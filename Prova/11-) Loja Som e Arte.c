@@ -79,49 +79,50 @@ void CadastrarCd (){
 }
 
 void PesquisarCd (){
-    int genero;
-     
+  int genero;
+int encontrado = 0;
+
     printf("Escolha o gênero:\n");
     printf("1- Rock\n");
     printf("2- Sertanejo\n");
     printf("3- MPB\n");
     printf("4- Pagode\n");
+    printf("5- Pop\n");
     scanf("%d", &genero);
     
     for (int i = 0; i < totalcds; i++) {
+        
         if (CDS[i].genero == genero) {
             printf("Nome da banda: %s\n", CDS[i].banda);
-            printf("Gênero: ");
-            switch (CDS[i].genero) {
+            switch (genero){
                 case 1:
-                printf("Rock\n");
-                break;
-                    
-                case 2:
-                printf("Sertanejo\n");
-                break;
-                    
-                case 3:
-                printf("MPB\n");
-                break;
-                    
-                case 4:
-                printf("Pagode\n");
-                break;
-                    
-                case 5:
-                printf ("Pop\n");
+                printf ("Genereo: Rock\n");
                 break;
                 
+                case 2:
+                printf ("Genero: Sertanejo\n");
+                break;
+                
+                case 3:
+                printf ("Genero: MPB \n");
+                break;
+                
+                case 4:
+                printf ("Genero: Pagode\n");
+                break;
+                
+                case 5:
+                printf ("Genero: Pop\n");
+                break;
             }
             printf("Ano: %d\n", CDS[i].ano);
-        }
-        else if (CDS[i].genero != genero){
-            printf ("Não temos esse gênero\n");
+            encontrado = 1;
         }
     }
-}
-
+    if (!encontrado) {
+        printf("Não temos CDs desse gênero\n");
+    }
+} 
 
 void ConsultarCd (){
     char banda[50];
@@ -144,6 +145,7 @@ void ConsultarCd (){
 
 void VenderCd(){
     char banda[50];
+    
     printf("Digite o nome da banda: \n");
     scanf(" %[^\n]", banda);
     
@@ -152,8 +154,13 @@ void VenderCd(){
         if (CDS[i].banda[0] == banda[0]) {
             if (CDS[i].disponivel == 1) {
                 printf("CD encontrado! Venda realizada com sucesso!\n");
-                CDS[i].disponivel = 0;
+                
+                for (int j = i; j < totalcds - 1; j++) { //for dentro de for usa j, igual no termo
+                    CDS[j] = CDS[j + 1];
+                }
+                totalcds--;
                 return;
+                
             } else {
                 printf("CD não está disponível!\n");
                 return;
@@ -162,6 +169,7 @@ void VenderCd(){
     }
     printf("CD não encontrado!\n");
 }
+
 
 void FinalizarFuncao (){
     printf ("\nEnter para Continuar....\n");
