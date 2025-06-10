@@ -112,8 +112,12 @@ void PesquisarCd (){
                 case 5:
                 printf ("Pop\n");
                 break;
+                
             }
             printf("Ano: %d\n", CDS[i].ano);
+        }
+        else if (CDS[i].genero != genero){
+            printf ("Não temos esse gênero\n");
         }
     }
 }
@@ -165,3 +169,4 @@ void FinalizarFuncao (){
     getchar ();
     system ("clear");
 }
+
